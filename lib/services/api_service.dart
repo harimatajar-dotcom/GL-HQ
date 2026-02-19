@@ -6,6 +6,7 @@ import '../models/comment.dart';
 import '../models/history_entry.dart';
 import '../models/dashboard_stats.dart';
 import '../models/my_dashboard.dart';
+import '../models/asset.dart';
 
 class ApiService {
   static final ApiService _instance = ApiService._();
@@ -251,5 +252,160 @@ class ApiService {
 
   Future<Map<String, dynamic>> getHRReportDetail(String date) async {
     return await _get('hr_report_detail', {'date': date});
+  }
+
+  // ========== ASSETS ==========
+
+  Future<({List<Asset> assets, int total})> getAssets({
+    String? search,
+    String? status,
+    String? category,
+    int? assignedTo,
+    int page = 1,
+    int limit = 50,
+  }) async {
+    final params = <String, String>{
+      'action': 'assets_list',
+      'page': page.toString(),
+      'limit': limit.toString(),
+    };
+    if (search != null && search.isNotEmpty) params['search'] = search;
+    if (status != null) params['status'] = status;
+    if (category != null) params['type'] = category;
+    if (assignedTo != null) params['assigned_to'] = assignedTo.toString();
+
+    final data = await _get('assets', params);
+    final assets = (data['assets'] as List? ?? []).map((e) => Asset.fromJson(e)).toList();
+    return (
+      assets: assets,
+      total: int.tryParse(data['total'].toString()) ?? assets.length,
+    );
+  }
+
+  Future<({Asset? asset, List<AssetAssignment> assignments, List<AssetRepair> repairs})> getAssetDetail(int assetId) async {
+    final data = await _get('asset_detail', {'id': assetId.toString()});
+    return (
+      asset: data['asset'] != null ? Asset.fromJson(data['asset']) : null,
+      assignments: (data['assignments'] as List? ?? []).map((e) => AssetAssignment.fromJson(e)).toList(),
+      repairs: (data['repairs'] as List? ?? []).map((e) => AssetRepair.fromJson(e)).toList(),
+    );
+  }
+
+  Future<List<AssetRepair>> getAssetRepairs({int? assetId}) async {
+    final params = <String, String>{'action': 'asset_repairs'};
+    if (assetId != null) params['asset_id'] = assetId.toString();
+
+    final data = await _get('asset_repairs', params);
+    return (data['repairs'] as List? ?? []).map((e) => AssetRepair.fromJson(e)).toList();
+  }
+
+  Future<Map<String, dynamic>> addAsset({
+    required String name,
+    required String type,
+    String? brand,
+    String? model,
+    String? serialNumber,
+    String? purchaseDate,
+    double? purchasePrice,
+    String? vendor,
+    int? assignedTo,
+    String status = 'active',
+    String? warrantyExpiry,
+    String? notes,
+    String? remarks,
+    int checkupInterval = 90,
+  }) async {
+    return await _post({
+      'action': 'asset_add',
+      'name': name,
+      'type': type,
+      'brand': brand ?? '',
+      'model': model ?? '',
+      'serial_number': serialNumber ?? '',
+      'purchase_date': purchaseDate,
+      'purchase_price': purchasePrice,
+      'vendor': vendor ?? '',
+      'assigned_to': assignedTo,
+      'status': status,
+      'warranty_expiry': warrantyExpiry,
+      'notes': notes ?? '',
+      'remarks': remarks ?? '',
+      'checkup_interval': checkupInterval,
+    });
+  }
+
+  Future<Map<String, dynamic>> updateAsset(int id, {
+    String? name,
+    String? type,
+    String? brand,
+    String? model,
+    String? serialNumber,
+    String? purchaseDate,
+    double? purchasePrice,
+    String? vendor,
+    int? assignedTo,
+    String? status,
+    String? warrantyExpiry,
+    String? notes,
+    String? remarks,
+    int? checkupInterval,
+  }) async {
+    final body = <String, dynamic>{
+      'action': 'asset_update',
+      'id': id,
+    };
+    if (name != null) body['name'] = name;
+    if (type != null) body['type'] = type;
+    if (brand != null) body['brand'] = brand;
+    if (model != null) body['model'] = model;
+    if (serialNumber != null) body['serial_number'] = serialNumber;
+    if (purchaseDate != null) body['purchase_date'] = purchaseDate;
+    if (purchasePrice != null) body['purchase_price'] = purchasePrice;
+    if (vendor != null) body['vendor'] = vendor;
+    if (assignedTo != null) body['assigned_to'] = assignedTo;
+    if (status != null) body['status'] = status;
+    if (warrantyExpiry != null) body['warranty_expiry'] = warrantyExpiry;
+    if (notes != null) body['notes'] = notes;
+    if (remarks != null) body['remarks'] = remarks;
+    if (checkupInterval != null) body['checkup_interval'] = checkupInterval;
+
+    return await _post(body);
+  }
+
+  Future<Map<String, dynamic>> deleteAsset(int id) async {
+    return await _post({
+      'action': 'asset_delete',
+      'id': id,
+    });
+  }
+
+  Future<Map<String, dynamic>> assignAsset(int assetId, int? staffId, {String? notes}) async {
+    return await _post({
+      'action': 'asset_assign',
+      'asset_id': assetId,
+      'staff_id': staffId,
+      'notes': notes ?? '',
+    });
+  }
+
+  Future<Map<String, dynamic>> addRepair({
+    required int assetId,
+    required String date,
+    required String issue,
+    double? cost,
+    String? vendor,
+    String status = 'pending',
+    String? notes,
+  }) async {
+    return await _post({
+      'action': 'asset_add_repair',
+      'asset_id': assetId,
+      'date': date,
+      'issue': issue,
+      'cost': cost ?? 0,
+      'vendor': vendor ?? '',
+      'status': status,
+      'notes': notes ?? '',
+    });
   }
 }

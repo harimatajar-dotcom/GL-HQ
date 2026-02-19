@@ -7,6 +7,7 @@ import 'providers/dashboard_provider.dart';
 import 'providers/team_provider.dart';
 import 'providers/report_provider.dart';
 import 'providers/hr_report_provider.dart';
+import 'providers/asset_provider.dart';
 import 'screens/login_screen.dart';
 import 'screens/home_screen.dart';
 
@@ -28,6 +29,7 @@ class GetleadHQApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => TeamProvider()),
         ChangeNotifierProvider(create: (_) => ReportProvider()),
         ChangeNotifierProvider(create: (_) => HRReportProvider()),
+        ChangeNotifierProvider(create: (_) => AssetProvider()),
       ],
       child: MaterialApp(
         title: 'Getlead HQ',
