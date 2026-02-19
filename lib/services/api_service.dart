@@ -535,4 +535,104 @@ class ApiService {
       'project_id': projectId,
     });
   }
+
+  // ========== ANALYTICS ==========
+
+  Future<Map<String, dynamic>> analyticsTasks(String from, String to) async {
+    return await _get('analytics_tasks', {'from': from, 'to': to});
+  }
+
+  Future<Map<String, dynamic>> analyticsReports(String from, String to) async {
+    return await _get('analytics_reports', {'from': from, 'to': to});
+  }
+
+  Future<Map<String, dynamic>> analyticsTeam(String from, String to) async {
+    return await _get('analytics_team', {'from': from, 'to': to});
+  }
+
+  Future<Map<String, dynamic>> analyticsHR(String from, String to) async {
+    return await _get('analytics_hr', {'from': from, 'to': to});
+  }
+
+  Future<Map<String, dynamic>> analyticsMarketing() async {
+    return await _get('analytics_marketing');
+  }
+
+  // ========== CHAT LOGS ==========
+
+  Future<({List<dynamic> logs, int total, int pages})> getChatLogs({
+    int? staffId,
+    String? staffName,
+    String? sessionId,
+    String? date,
+    String? fromDate,
+    String? toDate,
+    String? search,
+    int page = 1,
+    int limit = 50,
+  }) async {
+    final params = <String, String>{
+      'action': 'chat_logs',
+      'page': page.toString(),
+      'limit': limit.toString(),
+    };
+    if (staffId != null) params['staff_id'] = staffId.toString();
+    if (staffName != null) params['staff_name'] = staffName;
+    if (sessionId != null) params['session_id'] = sessionId;
+    if (date != null) params['date'] = date;
+    if (fromDate != null) params['from_date'] = fromDate;
+    if (toDate != null) params['to_date'] = toDate;
+    if (search != null) params['search'] = search;
+
+    final data = await _get('chat_logs', params);
+    final logs = data['logs'] as List? ?? [];
+    return (
+      logs: logs,
+      total: int.tryParse(data['total'].toString()) ?? logs.length,
+      pages: int.tryParse(data['pages']?.toString() ?? '1') ?? 1,
+    );
+  }
+
+  Future<({List<dynamic> sessions})> getChatSessions() async {
+    final data = await _get('chat_sessions');
+    return (
+      sessions: data['sessions'] as List? ?? [],
+    );
+  }
+
+  // ========== TOUCHPOINT ==========
+
+  Future<Map<String, dynamic>> tpDashboard() async {
+    return await _get('touchpoint', {'tp_api': 'dashboard'});
+  }
+
+  Future<Map<String, dynamic>> tpCustomers({
+    String? search,
+    String? status,
+    String? subscription,
+  }) async {
+    final params = <String, String>{'tp_api': 'customers'};
+    if (search != null) params['search'] = search;
+    if (status != null) params['status'] = status;
+    if (subscription != null) params['subscription'] = subscription;
+    return await _get('touchpoint', params);
+  }
+
+  Future<Map<String, dynamic>> tpTouchpoints({
+    String? stage,
+    String? status,
+    String? dateFilter,
+    String? assigned,
+  }) async {
+    final params = <String, String>{'tp_api': 'touchpoints'};
+    if (stage != null) params['stage'] = stage;
+    if (status != null) params['tp_status'] = status;
+    if (dateFilter != null) params['date_filter'] = dateFilter;
+    if (assigned != null) params['assigned'] = assigned;
+    return await _get('touchpoint', params);
+  }
+
+  Future<Map<String, dynamic>> tpReports({String period = 'week'}) async {
+    return await _get('touchpoint', {'tp_api': 'reports', 'period': period});
+  }
 }
