@@ -14,6 +14,9 @@ import 'reports_view_screen.dart';
 import 'settings_screen.dart';
 import 'profile_screen.dart';
 import 'login_screen.dart';
+import 'analytics_screen.dart';
+import 'touchpoint_screen.dart';
+import 'chatlogs_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -211,6 +214,45 @@ class HomeScreenState extends State<HomeScreen> {
                 Navigator.pop(context);
               },
             ),
+            const Divider(height: 16, indent: 24, endIndent: 24),
+            if (isAdmin) ...[
+              _DrawerItem(
+                icon: Icons.analytics_rounded,
+                label: 'Analytics',
+                selected: false,
+                onTap: () {
+                  Navigator.pop(context);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => const AnalyticsScreen()),
+                  );
+                },
+              ),
+              _DrawerItem(
+                icon: Icons.favorite_outline,
+                label: 'TouchPoint',
+                selected: false,
+                onTap: () {
+                  Navigator.pop(context);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => const TouchpointScreen()),
+                  );
+                },
+              ),
+              _DrawerItem(
+                icon: Icons.forum_outlined,
+                label: 'Chat Logs',
+                selected: false,
+                onTap: () {
+                  Navigator.pop(context);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => const ChatlogsScreen()),
+                  );
+                },
+              ),
+            ],
 
             const Spacer(),
 
