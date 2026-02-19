@@ -364,7 +364,7 @@ class _AssetDetailScreenState extends State<AssetDetailScreen> {
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                   decoration: BoxDecoration(
-                    color: AppColors.accent.withValues(alpha: 0.1),
+                    color: AppColors.accent.withOpacity(0.1),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Text(
@@ -411,8 +411,8 @@ class _AssetDetailScreenState extends State<AssetDetailScreen> {
                   padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                   decoration: BoxDecoration(
                     color: _asset!.isWarrantyExpired
-                        ? AppColors.destructive.withValues(alpha: 0.1)
-                        : AppColors.green.withValues(alpha: 0.1),
+                        ? AppColors.destructive.withOpacity(0.1)
+                        : AppColors.green.withOpacity(0.1),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Text(
@@ -507,7 +507,7 @@ class _AssetDetailScreenState extends State<AssetDetailScreen> {
     return Container(
       margin: const EdgeInsets.fromLTRB(16, 16, 16, 0),
       child: Card(
-        color: AppColors.amber.withValues(alpha: 0.05),
+        color: AppColors.amber.withOpacity(0.05),
         child: Padding(
           padding: const EdgeInsets.all(16),
           child: Column(
@@ -619,7 +619,7 @@ class _AssetDetailScreenState extends State<AssetDetailScreen> {
       padding: const EdgeInsets.symmetric(vertical: 10),
       decoration: BoxDecoration(
         border: Border(
-          bottom: BorderSide(color: AppColors.border.withValues(alpha: 0.5)),
+          bottom: BorderSide(color: AppColors.border.withOpacity(0.5)),
         ),
       ),
       child: Row(
@@ -723,7 +723,7 @@ class _AssetDetailScreenState extends State<AssetDetailScreen> {
       padding: const EdgeInsets.symmetric(vertical: 12),
       decoration: BoxDecoration(
         border: Border(
-          bottom: BorderSide(color: AppColors.border.withValues(alpha: 0.5)),
+          bottom: BorderSide(color: AppColors.border.withOpacity(0.5)),
         ),
       ),
       child: Column(

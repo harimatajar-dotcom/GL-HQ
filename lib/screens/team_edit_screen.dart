@@ -150,7 +150,7 @@ class _TeamEditScreenState extends State<TeamEditScreen> {
                 labelStyle: GoogleFonts.poppins(),
                 prefixIcon: const Icon(Icons.phone_outlined),
                 hintText: '9048333535',
-                hintStyle: GoogleFonts.poppins(color: AppColors.mutedForeground.withValues(alpha: 0.5)),
+                hintStyle: GoogleFonts.poppins(color: AppColors.mutedForeground.withOpacity(0.5)),
               ),
               keyboardType: TextInputType.phone,
             ),

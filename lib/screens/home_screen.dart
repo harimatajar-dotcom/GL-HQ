@@ -108,7 +108,7 @@ class HomeScreenState extends State<HomeScreen> {
                     ),
                     child: CircleAvatar(
                       radius: 34,
-                      backgroundColor: AppColors.accent.withValues(alpha: 0.15),
+                      backgroundColor: AppColors.accent.withOpacity(0.15),
                       child: Text(
                         initial,
                         style: GoogleFonts.poppins(
@@ -133,7 +133,7 @@ class HomeScreenState extends State<HomeScreen> {
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                     decoration: BoxDecoration(
-                      color: AppColors.accent.withValues(alpha: 0.2),
+                      color: AppColors.accent.withOpacity(0.2),
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: Text(
@@ -260,7 +260,7 @@ class HomeScreenState extends State<HomeScreen> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Material(
-                color: AppColors.destructive.withValues(alpha: 0.08),
+                color: AppColors.destructive.withOpacity(0.08),
                 borderRadius: BorderRadius.circular(12),
                 child: InkWell(
                   borderRadius: BorderRadius.circular(12),
@@ -315,7 +315,7 @@ class HomeScreenState extends State<HomeScreen> {
                     'v1.0.0',
                     style: GoogleFonts.poppins(
                       fontSize: 10,
-                      color: AppColors.mutedForeground.withValues(alpha: 0.6),
+                      color: AppColors.mutedForeground.withOpacity(0.6),
                     ),
                   ),
                 ],

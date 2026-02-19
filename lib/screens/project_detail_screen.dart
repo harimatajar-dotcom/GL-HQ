@@ -245,8 +245,8 @@ class _ProjectDetailScreenState extends State<ProjectDetailScreen> {
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            project.statusColor.withValues(alpha: 0.1),
-            AppColors.muted.withValues(alpha: 0.5),
+            project.statusColor.withOpacity(0.1),
+            AppColors.muted.withOpacity(0.5),
           ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
@@ -273,7 +273,7 @@ class _ProjectDetailScreenState extends State<ProjectDetailScreen> {
                 decoration: BoxDecoration(
                   color: project.statusBgColor,
                   borderRadius: BorderRadius.circular(20),
-                  border: Border.all(color: project.statusColor.withValues(alpha: 0.3)),
+                  border: Border.all(color: project.statusColor.withOpacity(0.3)),
                 ),
                 child: Text(
                   project.statusLabel,
@@ -447,9 +447,9 @@ class _ProjectDetailScreenState extends State<ProjectDetailScreen> {
             Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: color.withValues(alpha: 0.05),
+                color: color.withOpacity(0.05),
                 borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: color.withValues(alpha: 0.2)),
+                border: Border.all(color: color.withOpacity(0.2)),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -601,7 +601,7 @@ class _TaskStat extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 8),
         decoration: BoxDecoration(
-          color: color.withValues(alpha: 0.1),
+          color: color.withOpacity(0.1),
           borderRadius: BorderRadius.circular(8),
         ),
         child: Column(
@@ -646,7 +646,7 @@ class _MetaItem extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: AppColors.muted.withValues(alpha: 0.5),
+        color: AppColors.muted.withOpacity(0.5),
         borderRadius: BorderRadius.circular(10),
       ),
       child: Column(

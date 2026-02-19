@@ -614,7 +614,7 @@ class _ReportRow extends StatelessWidget {
           color: day.isToday ? AppColors.accent : AppColors.border,
         ),
         borderRadius: BorderRadius.circular(10),
-        color: day.isToday ? AppColors.accentLight.withValues(alpha: 0.3) : null,
+        color: day.isToday ? AppColors.accentLight.withOpacity(0.3) : null,
       ),
       child: Row(
         children: [
@@ -651,8 +651,8 @@ class _ReportRow extends StatelessWidget {
                       const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                   decoration: BoxDecoration(
                     color: isSubmitted
-                        ? AppColors.accent.withValues(alpha: 0.12)
-                        : AppColors.destructive.withValues(alpha: 0.12),
+                        ? AppColors.accent.withOpacity(0.12)
+                        : AppColors.destructive.withOpacity(0.12),
                     borderRadius: BorderRadius.circular(6),
                   ),
                   child: Text(
@@ -844,7 +844,7 @@ class _ReportDetailSheetState extends State<_ReportDetailSheet> {
               padding:
                   const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
               decoration: BoxDecoration(
-                color: AppColors.accent.withValues(alpha: 0.1),
+                color: AppColors.accent.withOpacity(0.1),
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Text(
@@ -971,7 +971,7 @@ class _ReportDetailSheetState extends State<_ReportDetailSheet> {
                       padding: const EdgeInsets.symmetric(
                           horizontal: 6, vertical: 2),
                       decoration: BoxDecoration(
-                        color: AppColors.accent.withValues(alpha: 0.1),
+                        color: AppColors.accent.withOpacity(0.1),
                         borderRadius: BorderRadius.circular(4),
                       ),
                       child: Text(
@@ -1023,7 +1023,7 @@ class _ActionChip extends StatelessWidget {
         margin: const EdgeInsets.only(left: 6),
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
         decoration: BoxDecoration(
-          border: Border.all(color: color.withValues(alpha: 0.4)),
+          border: Border.all(color: color.withOpacity(0.4)),
           borderRadius: BorderRadius.circular(6),
         ),
         child: Row(

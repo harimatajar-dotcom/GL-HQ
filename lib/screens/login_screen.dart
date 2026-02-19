@@ -103,7 +103,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         labelStyle: GoogleFonts.poppins(),
                         prefixIcon: const Icon(Icons.phone_outlined),
                         hintText: '9048333535',
-                        hintStyle: GoogleFonts.poppins(color: AppColors.mutedForeground.withValues(alpha: 0.5)),
+                        hintStyle: GoogleFonts.poppins(color: AppColors.mutedForeground.withOpacity(0.5)),
                       ),
                       onSubmitted: (_) => _pinFocusNode.requestFocus(),
                     ),

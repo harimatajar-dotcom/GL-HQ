@@ -363,7 +363,7 @@ class _HRReportScreenState extends State<HRReportScreen> {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                   decoration: BoxDecoration(
-                    color: AppColors.green.withValues(alpha: 0.12),
+                    color: AppColors.green.withOpacity(0.12),
                     borderRadius: BorderRadius.circular(6),
                   ),
                   child: Text('Submitted',
@@ -416,10 +416,10 @@ class _HRReportScreenState extends State<HRReportScreen> {
           margin: const EdgeInsets.symmetric(horizontal: 12),
           padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
-            color: AppColors.accent.withValues(alpha: 0.08),
+            color: AppColors.accent.withOpacity(0.08),
             borderRadius: BorderRadius.circular(8),
             border:
-                Border.all(color: AppColors.accent.withValues(alpha: 0.2)),
+                Border.all(color: AppColors.accent.withOpacity(0.2)),
           ),
           child: Row(
             children: [
@@ -532,9 +532,9 @@ class _HRReportScreenState extends State<HRReportScreen> {
                               decoration: BoxDecoration(
                                 color: e.isHalfDay
                                     ? AppColors.amber
-                                        .withValues(alpha: 0.12)
+                                        .withOpacity(0.12)
                                     : AppColors.destructive
-                                        .withValues(alpha: 0.12),
+                                        .withOpacity(0.12),
                                 borderRadius: BorderRadius.circular(4),
                               ),
                               child: Text(
@@ -636,15 +636,15 @@ class _EmployeeTile extends StatelessWidget {
           color: employee.isPresent
               ? AppColors.border
               : employee.isHalfDay
-                  ? AppColors.amber.withValues(alpha: 0.4)
-                  : AppColors.destructive.withValues(alpha: 0.4),
+                  ? AppColors.amber.withOpacity(0.4)
+                  : AppColors.destructive.withOpacity(0.4),
         ),
         borderRadius: BorderRadius.circular(10),
         color: employee.isPresent
             ? null
             : employee.isHalfDay
-                ? AppColors.amber.withValues(alpha: 0.04)
-                : AppColors.destructive.withValues(alpha: 0.04),
+                ? AppColors.amber.withOpacity(0.04)
+                : AppColors.destructive.withOpacity(0.04),
       ),
       child: Row(
         children: [
@@ -724,7 +724,7 @@ class _AbsentOption extends StatelessWidget {
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
           decoration: BoxDecoration(
-            border: Border.all(color: color.withValues(alpha: 0.3)),
+            border: Border.all(color: color.withOpacity(0.3)),
             borderRadius: BorderRadius.circular(10),
           ),
           child: Row(

@@ -382,7 +382,7 @@ class _FilterChip extends StatelessWidget {
         ),
         selected: selected,
         onSelected: (_) => onSelected(),
-        selectedColor: color?.withValues(alpha: 0.15) ?? AppColors.accentLight,
+        selectedColor: color?.withOpacity(0.15) ?? AppColors.accentLight,
         backgroundColor: AppColors.muted,
         checkmarkColor: color ?? AppColors.accent,
         showCheckmark: false,
@@ -414,7 +414,7 @@ class _KpiCard extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 12),
         decoration: BoxDecoration(
-          color: color?.withValues(alpha: 0.1) ?? AppColors.muted,
+          color: color?.withOpacity(0.1) ?? AppColors.muted,
           borderRadius: BorderRadius.circular(10),
         ),
         child: Column(
@@ -483,7 +483,7 @@ class _ProjectCard extends StatelessWidget {
                     decoration: BoxDecoration(
                       color: project.statusBgColor,
                       borderRadius: BorderRadius.circular(20),
-                      border: Border.all(color: project.statusColor.withValues(alpha: 0.3)),
+                      border: Border.all(color: project.statusColor.withOpacity(0.3)),
                     ),
                     child: Text(
                       project.statusLabel,
@@ -610,7 +610,7 @@ class _KanbanColumn extends StatelessWidget {
     return Container(
       width: 280,
       decoration: BoxDecoration(
-        color: AppColors.muted.withValues(alpha: 0.5),
+        color: AppColors.muted.withOpacity(0.5),
         borderRadius: BorderRadius.circular(12),
       ),
       child: Column(
@@ -620,7 +620,7 @@ class _KanbanColumn extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
-              color: color.withValues(alpha: 0.1),
+              color: color.withOpacity(0.1),
               borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(12),
                 topRight: Radius.circular(12),
