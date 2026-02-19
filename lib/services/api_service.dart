@@ -7,6 +7,7 @@ import '../models/history_entry.dart';
 import '../models/dashboard_stats.dart';
 import '../models/my_dashboard.dart';
 import '../models/asset.dart';
+import '../models/project.dart';
 
 class ApiService {
   static final ApiService _instance = ApiService._();
@@ -406,6 +407,132 @@ class ApiService {
       'vendor': vendor ?? '',
       'status': status,
       'notes': notes ?? '',
+    });
+  }
+
+  // ========== PROJECTS ==========
+
+  Future<({List<Project> projects, int total})> getProjects({
+    String? search,
+    String? status,
+    int? lead,
+    int page = 1,
+    int limit = 50,
+  }) async {
+    final params = <String, String>{
+      'action': 'project_list',
+      'page': page.toString(),
+      'limit': limit.toString(),
+    };
+    if (search != null && search.isNotEmpty) params['search'] = search;
+    if (status != null) params['status'] = status;
+    if (lead != null) params['lead'] = lead.toString();
+
+    final data = await _get('project_list', params);
+    final projects = (data['projects'] as List? ?? []).map((e) => Project.fromJson(e)).toList();
+    return (
+      projects: projects,
+      total: int.tryParse(data['total']?.toString() ?? '0') ?? projects.length,
+    );
+  }
+
+  Future<Map<String, dynamic>> getProjectsBoard({
+    String? search,
+    int? lead,
+  }) async {
+    final params = <String, String>{
+      'action': 'projects_board',
+    };
+    if (search != null && search.isNotEmpty) params['search'] = search;
+    if (lead != null) params['lead'] = lead.toString();
+
+    return await _get('projects_board', params);
+  }
+
+  Future<ProjectDetail> getProjectDetail(int projectId) async {
+    final data = await _get('project_detail', {'id': projectId.toString()});
+    return ProjectDetail.fromJson(data);
+  }
+
+  Future<List<ProjectActivity>> getProjectActivity() async {
+    final data = await _get('project_activity');
+    return (data['activity'] as List? ?? []).map((e) => ProjectActivity.fromJson(e)).toList();
+  }
+
+  Future<Map<String, dynamic>> addProject({
+    required String name,
+    String? description,
+    String status = 'active',
+    int? projectLead,
+    String? startDate,
+    String? targetDate,
+  }) async {
+    return await _post({
+      'action': 'project_add',
+      'name': name,
+      'description': description ?? '',
+      'status': status,
+      'project_lead': projectLead,
+      'start_date': startDate,
+      'target_date': targetDate,
+    });
+  }
+
+  Future<Map<String, dynamic>> updateProject(
+    int id, {
+    String? name,
+    String? description,
+    String? status,
+    int? projectLead,
+    String? startDate,
+    String? targetDate,
+  }) async {
+    final body = <String, dynamic>{
+      'action': 'project_update',
+      'id': id,
+    };
+    if (name != null) body['name'] = name;
+    if (description != null) body['description'] = description;
+    if (status != null) body['status'] = status;
+    if (projectLead != null) body['project_lead'] = projectLead;
+    if (startDate != null) body['start_date'] = startDate;
+    if (targetDate != null) body['target_date'] = targetDate;
+
+    return await _post(body);
+  }
+
+  Future<Map<String, dynamic>> deleteProject(int id) async {
+    return await _post({
+      'action': 'project_delete',
+      'id': id,
+    });
+  }
+
+  Future<Map<String, dynamic>> moveProject(int projectId, String newStatus) async {
+    return await _post({
+      'action': 'project_move',
+      'project_id': projectId,
+      'new_status': newStatus,
+    });
+  }
+
+  Future<Map<String, dynamic>> addProjectTask({
+    required int projectId,
+    required String title,
+    String? description,
+    int? assignedTo,
+    String priority = 'normal',
+    String? dueDate,
+  }) async {
+    return await _post({
+      'action': 'task_create',
+      'title': title,
+      'description': description ?? '',
+      'assignees': assignedTo != null ? [assignedTo] : [],
+      'priority': priority,
+      'due_date': dueDate,
+      'category': 'other',
+      'project_id': projectId,
     });
   }
 }

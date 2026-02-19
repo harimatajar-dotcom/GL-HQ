@@ -6,6 +6,7 @@ import '../providers/auth_provider.dart';
 import 'admin_dashboard_screen.dart';
 import 'my_dashboard_screen.dart';
 import 'tasks_screen.dart';
+import 'projects_screen.dart';
 import 'assets_screen.dart';
 import 'report_history_screen.dart';
 import 'team_screen.dart';
@@ -67,6 +68,7 @@ class HomeScreenState extends State<HomeScreen> {
     final screens = [
       isAdmin ? const AdminDashboardScreen() : const MyDashboardScreen(),
       const TasksScreen(),
+      const ProjectsScreen(),
       const AssetsScreen(),
       const ReportHistoryScreen(),
       isAdmin ? const ReportsViewScreen() : const ProfileScreen(),
@@ -165,8 +167,8 @@ class HomeScreenState extends State<HomeScreen> {
               },
             ),
             _DrawerItem(
-              icon: Icons.inventory_2_rounded,
-              label: 'Assets',
+              icon: Icons.folder_outlined,
+              label: 'Projects',
               selected: _currentIndex == 2,
               onTap: () {
                 setState(() => _currentIndex = 2);
@@ -174,8 +176,8 @@ class HomeScreenState extends State<HomeScreen> {
               },
             ),
             _DrawerItem(
-              icon: Icons.edit_note_rounded,
-              label: 'Daily Report',
+              icon: Icons.inventory_2_rounded,
+              label: 'Assets',
               selected: _currentIndex == 3,
               onTap: () {
                 setState(() => _currentIndex = 3);
@@ -183,8 +185,8 @@ class HomeScreenState extends State<HomeScreen> {
               },
             ),
             _DrawerItem(
-              icon: isAdmin ? Icons.bar_chart_rounded : Icons.person_rounded,
-              label: isAdmin ? 'Reports' : 'Profile',
+              icon: Icons.edit_note_rounded,
+              label: 'Daily Report',
               selected: _currentIndex == 4,
               onTap: () {
                 setState(() => _currentIndex = 4);
@@ -192,11 +194,20 @@ class HomeScreenState extends State<HomeScreen> {
               },
             ),
             _DrawerItem(
-              icon: isAdmin ? Icons.people_rounded : Icons.settings_rounded,
-              label: isAdmin ? 'Team' : 'Settings',
+              icon: isAdmin ? Icons.bar_chart_rounded : Icons.person_rounded,
+              label: isAdmin ? 'Reports' : 'Profile',
               selected: _currentIndex == 5,
               onTap: () {
                 setState(() => _currentIndex = 5);
+                Navigator.pop(context);
+              },
+            ),
+            _DrawerItem(
+              icon: isAdmin ? Icons.people_rounded : Icons.settings_rounded,
+              label: isAdmin ? 'Team' : 'Settings',
+              selected: _currentIndex == 6,
+              onTap: () {
+                setState(() => _currentIndex = 6);
                 Navigator.pop(context);
               },
             ),
@@ -279,6 +290,7 @@ class HomeScreenState extends State<HomeScreen> {
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         onTap: (i) => setState(() => _currentIndex = i),
+        type: BottomNavigationBarType.fixed,
         items: [
           const BottomNavigationBarItem(
             icon: Icon(Icons.home_rounded),
@@ -287,6 +299,10 @@ class HomeScreenState extends State<HomeScreen> {
           const BottomNavigationBarItem(
             icon: Icon(Icons.task_alt_rounded),
             label: 'Tasks',
+          ),
+          const BottomNavigationBarItem(
+            icon: Icon(Icons.folder_outlined),
+            label: 'Projects',
           ),
           const BottomNavigationBarItem(
             icon: Icon(Icons.inventory_2_rounded),
@@ -322,7 +338,7 @@ class HomeScreenState extends State<HomeScreen> {
   }
 
   void switchToReportTab() {
-    setState(() => _currentIndex = 3);
+    setState(() => _currentIndex = 4);
   }
 }
 

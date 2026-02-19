@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'config/theme.dart';
 import 'providers/auth_provider.dart';
 import 'providers/tasks_provider.dart';
+import 'providers/projects_provider.dart';
 import 'providers/dashboard_provider.dart';
 import 'providers/team_provider.dart';
 import 'providers/report_provider.dart';
@@ -25,6 +26,7 @@ class GetleadHQApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => AuthProvider()..init()),
         ChangeNotifierProvider(create: (_) => TasksProvider()),
+        ChangeNotifierProvider(create: (_) => ProjectsProvider()),
         ChangeNotifierProvider(create: (_) => DashboardProvider()),
         ChangeNotifierProvider(create: (_) => TeamProvider()),
         ChangeNotifierProvider(create: (_) => ReportProvider()),
